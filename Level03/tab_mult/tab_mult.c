@@ -1,25 +1,19 @@
 #include <unistd.h>
 
-int ft_atoi(char *s) {
-    int i;
-    int nb;
-    int sign;
+int ft_atoi(char *str) {
+    int i = 0;
+    int sign  = 1;
+    int nb = 0;
 
-    i = 0;
-    nb = 0;
-    sign = 1;
-    if (s[i] == '-') {
-        sign = -1;
+    if (str[i] == '-') {
+        sign *= -1;
         i++;
     }
-    else if (s[i] == '+') {
+    while (str[i]) {
+        nb = nb * 10 + str[i] - '0';
         i++;
     }
-    while (s[i] >= '0' && s[i] <= '9') {
-        nb = nb * 10 + s[i] - '0';
-        i++;
-    }
-    return (nb*sign);
+    return (sign * nb);
 }
 
 void ft_putnbr(int nb) {
@@ -31,22 +25,18 @@ void ft_putnbr(int nb) {
 }
 
 int main(int ac, char **av) {
-    if (ac == 2) {
-        int i;
-        int nb;
-
-        i = 1;
-        nb = ft_atoi(av[1]);
+    if (ac > 1) {
+        int i = 1;
+        int nb = ft_atoi(av[1]);
         while (i <= 9) {
-            write(1, "1 x ", 4);
+            ft_putnbr(i);
+            write(1, " x ", 3);
             ft_putnbr(nb);
             write(1, " = ", 3);
-            ft_putnbr(nb * i);
+            ft_putnbr(i * nb);
             write(1, "\n", 1);
             i++;
         }
-        
-    }
-    else
+    } else
         write(1, "\n", 1);
 }
