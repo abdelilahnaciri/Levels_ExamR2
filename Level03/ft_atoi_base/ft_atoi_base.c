@@ -1,4 +1,3 @@
-#include <unistd.h>
 #include <stdio.h>
 
 int is_valid(char c, int base) {

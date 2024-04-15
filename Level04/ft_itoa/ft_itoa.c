@@ -1,42 +1,38 @@
-#include <unistd.h>
-#include <stdio.h>
+#include <stdlib.h>
 
-int nbr_len(int nb) {
-    int len;
-
-    len = 1;
-    if (nb < 0) {
-        len++;
+int count_nb(int nb) {
+    int i = 0;
+    if (nb <= 0) {
+        i++;
         nb *= -1;
     }
-    while (nb != 0) {
-        nb /= 10;
-        len++;
+    while (nb > 0) {
+        nb = nb / 10;
+        i++;
     }
-    return (len);
+    return (i);
 }
 
-char *ft_itoa(int nbr) {
-    int len;
-    int i;
+char	*ft_itoa(int nbr) {
+    int i = 0;
     char *str;
 
-    i = 0;
-    len = nbr_len(nbr);
-    str = malloc(sizeof(char) * len);
+    i = count_nb(nbr);
+    str = malloc(sizeof(char ) * i + 1);
+    str[i] = '\0';
+    i--;
     if (nbr < 0) {
         str[0] = '-';
+        nbr *= -1;
     }
-    str[--len] = '\0';
-    len--;
+    else if (nbr == 0) {
+        str[0] = '0';
+        return (str);
+    }
     while (nbr != 0) {
-        str[len] = (nbr % 10) + '0';
+        str[i] = nbr % 10 + '0';
         nbr = nbr / 10;
-        len--;
+        i--;
     }
     return (str);
-}
-
-int main() {
-    printf("%s", ft_itoa(15));
 }
